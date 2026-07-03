@@ -1,85 +1,85 @@
 # Static Source References
 
-Static decompiled/native references from the analysis environment.
+Static decompiled/native references using class names and APK-internal paths.
 
 ## Decompiled Java/Kotlin
 
 Package-list checks:
 
-- `/tmp/companyportal_jadx/sources/kotlin/r8lambdaE9XW8fIBuBlfy6ibDQdajXfq4Mo.java`
+- `kotlin.r8lambdaE9XW8fIBuBlfy6ibDQdajXfq4Mo`
 
 Xposed class checks:
 
-- `/tmp/companyportal_jadx/sources/kotlin/toList.java`
+- `kotlin.toList`
 
 `su` lookup:
 
-- `/tmp/companyportal_jadx/sources/kotlin/beginTransactionSync.java`
+- `kotlin.beginTransactionSync`
 
 Magisk-name checks:
 
-- `/tmp/companyportal_jadx/sources/kotlin/SharedPreferencesQueue.java`
+- `kotlin.SharedPreferencesQueue`
 
 Filesystem/stat checks:
 
-- `/tmp/companyportal_jadx/sources/kotlin/createInstance.java`
+- `kotlin.createInstance`
 
 `test-keys` check:
 
-- `/tmp/companyportal_jadx/sources/kotlin/syncState.java`
+- `kotlin.syncState`
 
 Native origin check loader:
 
-- `/tmp/companyportal_jadx/sources/kotlin/checkAndSyncState.java`
-- `/tmp/companyportal_jadx/sources/com/microsoft/intune/origindetection/InstrumentationCheck.java`
+- `kotlin.checkAndSyncState`
+- `com.microsoft.intune.origindetection.InstrumentationCheck`
 
 Native-memory/instrumentation subclass:
 
-- `/tmp/companyportal_jadx/sources/kotlin/logIfAbledefault.java`
+- `kotlin.logIfAbledefault`
 
 Origin check aggregator / diagnostics:
 
-- `/tmp/companyportal_jadx/sources/kotlin/LoggerAndroidLoggerWhenMappings.java`
+- `kotlin.LoggerAndroidLoggerWhenMappings`
 
 Origin provider:
 
-- `/tmp/companyportal_jadx/sources/com/microsoft/intune/origindetection/abstraction/DeviceOriginContentProvider.java`
+- `com.microsoft.intune.origindetection.abstraction.DeviceOriginContentProvider`
 
 Root-detection telemetry event:
 
-- `/tmp/companyportal_jadx/sources/com/microsoft/intune/origindetection/telemetry/domain/RootDetectionRootDetectedEvent.java`
+- `com.microsoft.intune.origindetection.telemetry.domain.RootDetectionRootDetectedEvent`
 
 MAM feature flags:
 
-- `/tmp/companyportal_jadx/sources/com/microsoft/intune/mam/client/ipcclient/MAMFeatureFlag.java`
+- `com.microsoft.intune.mam.client.ipcclient.MAMFeatureFlag`
 
 RASP telemetry/logging paths:
 
-- `/tmp/companyportal_jadx/sources/kotlin/AutoProtoEncoderDoNotUseEncoderProtoEncoderDoNotUseEncoder.java`
-- `/tmp/companyportal_jadx/sources/kotlin/limit.java`
+- `kotlin.AutoProtoEncoderDoNotUseEncoderProtoEncoderDoNotUseEncoder`
+- `kotlin.limit`
 
 Tracked occurrence names:
 
-- `/tmp/companyportal_jadx/sources/com/microsoft/intune/mam/client/telemetry/events/TrackedOccurrence.java`
+- `com.microsoft.intune.mam.client.telemetry.events.TrackedOccurrence`
 
 MAM sub-operation names:
 
-- `/tmp/companyportal_jadx/sources/com/microsoft/intune/mam/log/MAMSubOpTrace.java`
+- `com.microsoft.intune.mam.log.MAMSubOpTrace`
 
 ## Native Library
 
-Extracted native library:
+APK-internal native library:
 
-- `/tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.so`
+- `assets/mam_libs/arm64-v8a/liborigin.so`
 
 Exported JNI symbol:
 
 - `Java_com_microsoft_intune_origindetection_InstrumentationCheck_runChecksImpl`
 
-Useful commands:
+Example commands after extracting the APK:
 
 ```sh
-readelf -Ws /tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.so
-strings -a -tx /tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.so
-llvm-objdump -d --no-show-raw-insn --start-address=0x39b44 --stop-address=0x3a5c0 /tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.so
+readelf -Ws assets/mam_libs/arm64-v8a/liborigin.so
+strings -a -tx assets/mam_libs/arm64-v8a/liborigin.so
+llvm-objdump -d --no-show-raw-insn --start-address=0x39b44 --stop-address=0x3a5c0 assets/mam_libs/arm64-v8a/liborigin.so
 ```
