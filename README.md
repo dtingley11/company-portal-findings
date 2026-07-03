@@ -1,6 +1,6 @@
 # Microsoft Company Portal / Intune Root Detection Reference
 
-Minimal static-code writeup of Microsoft Company Portal / Intune MAM root, origin, and instrumentation checks.
+Static-code writeup of Microsoft Company Portal / Intune MAM root, origin, and instrumentation checks.
 
 ## Scope
 
