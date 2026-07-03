@@ -1,6 +1,6 @@
-# Source References
+# Static Source References
 
-Local paths from the analysis environment.
+Static decompiled/native references from the analysis environment.
 
 ## Decompiled Java/Kotlin
 
@@ -83,18 +83,3 @@ readelf -Ws /tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.
 strings -a -tx /tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.so
 llvm-objdump -d --no-show-raw-insn --start-address=0x39b44 --stop-address=0x3a5c0 /tmp/companyportal_apk_analysis/assets/mam_libs/arm64-v8a/liborigin.so
 ```
-
-## Local Runtime Artifacts
-
-Raw local files reviewed:
-
-- `/home/dylantingley/Downloads/OMADMLog_0.log`
-- `/home/dylantingley/Downloads/DiagnosticsInfo.log`
-- `/home/dylantingley/Downloads/CompanyPortal_0.log`
-- `/home/dylantingley/Downloads/broker.0.txt`
-- `/home/dylantingley/Downloads/AuditEvents_0.log`
-- `/home/dylantingley/companyportal-root.log`
-- `/home/dylantingley/companyportal-captures/logcat-20260702-235421.txt`
-- `/home/dylantingley/companyportal-captures/dmesg-20260702-235421.txt`
-- `/home/dylantingley/Downloads/LSPosed_2026-07-02T23_46_40.173514.zip`
-

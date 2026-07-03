@@ -1,6 +1,6 @@
 # Detector Details
 
-This file lists detector details observed in decompiled code, native strings/disassembly, and runtime logs.
+This file lists detector details from decompiled code and native strings/disassembly.
 
 ## Package Detection
 
@@ -36,24 +36,36 @@ Root hiding / hooking packages:
 Additional suspicious tooling/package indicators:
 
 - `com.koushikdutta.rommanager`
+- `com.koushikdutta.rommanager.license`
 - `com.dimonvideo.luckypatcher`
 - `com.chelpus.lackypatch`
 - `com.ramdroid.appquarantine`
+- `com.ramdroid.appquarantinepro`
+- `com.android.vending.billing.InAppBillingService.COIN`
+- `com.android.vending.billing.InAppBillingService.LUCK`
 - `com.chelpus.luckypatcher`
 - `com.allinone.free`
 - `com.repodroid.app`
 - `org.creeplays.hack`
+- `com.baseappfull.fwd`
+- `com.zmapp`
 - `com.dv.marketmod.installer`
 - `org.mobilism.android`
+- `com.android.wp.net.log`
+- `com.android.camera.update`
 - `cc.madkite.freedom`
 - `com.solohsu.android.edxp.manager`
 - `org.meowcat.edxposed.manager`
+- `com.xmodgame`
+- `com.cih.game_cih`
+- `com.charles.lpoqasert`
+- `catch_.me_.if_.you_.can_`
 - `cn.wq.myandroidtools`
 - `com.kunkunsoft.rootservicedisabler`
 
-Runtime evidence confirmed package visibility activity:
+Package-name pattern:
 
-- LSPosed/HMA logged `PmsHookTarget34 @shouldFilterApplication: query from com.microsoft.windowsintune.companyportal`.
+- `ru.(.*).installer`
 
 ## Xposed Runtime Detection
 
@@ -63,6 +75,11 @@ The APK checks for these classes:
 - `de.robv.android.xposed.XC_MethodReplacement`
 
 These checks are separate from package-name checks.
+
+The class-check path also treats stack traces containing root-cloak indicators as suspicious:
+
+- `devadvance`
+- a dynamically built string ending in `cloak`
 
 ## Binary / Name Checks
 
@@ -76,7 +93,7 @@ The APK checks for these names:
 
 ## Filesystem / Path Checks
 
-Observed path/name checks include:
+Static path/name checks include:
 
 - `data`
 - `system`
@@ -89,7 +106,7 @@ Observed path/name checks include:
 
 ## Build / Device Checks
 
-Observed build/device checks include:
+Static build/device checks include:
 
 - `Build.TAGS` containing `test-keys`
 - emulator/model/manufacturer/type strings, including:
@@ -150,8 +167,7 @@ Inferred native bitmask behavior:
 Important feature-flag nuance:
 
 - APK default: `INCUBATING_INSTRUMENTATION_CHECKS_MEMORY("mam_incubating_instrumentation_check_mem", true)`
-- Observed Microsoft ECS config set `mam_incubating_instrumentation_check_mem` to `false`
-- Therefore, the heavier native memory scan branch appeared disabled in the observed run, while other root/RASP checks remained enabled.
+- If enabled, the subclass calls the native checker with the incubating memory flag path and logs `AUDIT_INSTRUMENTATION_CHECK` when native bits `0x4` or `0x8` are set.
 
 ## Intune Origin Check Aggregation
 
@@ -165,39 +181,18 @@ The detailed compliance result logging is gated by:
 
 - `ORIGIN_CHECK_DIAGNOSTICS("mam_origin_check_diagnostic_logs", false)`
 
-Observed logs did not show this flag enabled, so local logs did not expose per-check pass/fail names.
-
 ## MAM / RASP Events
 
-Observed event names:
+Static event names:
 
 - `RASP_ROOT_DETECTED`
 - `RASP_HOOK_DETECTED`
 - `RASP_CERTIFICATE_TAMPER_DETECTED`
 
-Observed root event detail:
+Static root-event detail:
 
 - Empty detail string in some paths
 - `checkpoint` detail string in another path
-
-Observed service/device-health results:
-
-- `DeviceHealth=1`
-- `DEVICE_NON_COMPLIANT`
-- `adminPolicyJB`
-
-## Low-Level Runtime Probes
-
-Observed in `dmesg` during runtime:
-
-- Read attempt on `/sys/fs/selinux/policy`
-- `getattr` probes on `/sys/kernel/tracing/trace_marker`
-- `getattr` probes on `anon_inode:[userfaultfd]`
-
-These were seen from:
-
-- `com.microsoft.windowsintune.companyportal`
-- Managed Best Buy app process using Intune MAM
 
 ## LSPosed-Specific Notes
 
@@ -213,5 +208,3 @@ However, LSPosed can still be implicated indirectly by:
 - Xposed class checks
 - package visibility checks for Xposed/EdXposed managers
 - native/RASP hook detection
-- side effects visible through HMA/LSPosed package-manager hooks
-

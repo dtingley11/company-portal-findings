@@ -1,21 +1,20 @@
-# Microsoft Company Portal / Intune Root Detection Notes
+# Microsoft Company Portal / Intune Root Detection Reference
 
-Minimal writeup of local static and runtime findings from Microsoft Company Portal / Intune MAM root and instrumentation checks.
+Minimal static-code writeup of Microsoft Company Portal / Intune MAM root, origin, and instrumentation checks.
 
 ## Scope
 
-- APK analyzed: `com.microsoft.windowsintune.companyportal (1).apk`
-- Decompiled Java/Kotlin output: JADX
-- Native library reviewed: `assets/mam_libs/arm64-v8a/liborigin.so`
-- Runtime sources: Company Portal logs, OMADM logs, LSPosed/HMA logs, `logcat`, and `dmesg`
+- Decompiled Java/Kotlin definitions
+- Native `liborigin.so` strings/imports/disassembly
+- Detector names, return bits, and check behavior
 
-Raw APKs, databases, and full logs are intentionally not included because they can contain account, device, tenant, token, or other private data.
+Raw artifacts are not included.
 
-## Conclusion
+## Summary
 
 Company Portal / Intune uses more than one root/integrity signal.
 
-Confirmed categories:
+Static detector categories:
 
 - Installed package/app-list detection
 - Xposed class/runtime detection
@@ -24,27 +23,11 @@ Confirmed categories:
 - Build/emulator/test-key checks
 - Native Frida/instrumentation checks in `liborigin.so`
 - MAM/RASP root and hook checks
-- Device-health reporting through OMADM/MAM service check-in
 
-The UI message showing an X next to "device is healthy" maps to Intune marking the device unhealthy/non-compliant. It does not reveal the exact detector that fired.
+The in-house origin checks implement a shared checker interface and return integer bit values. `ServiceStarter` combines checker results into a single bitmask.
 
-## Key Runtime Evidence
-
-- OMADM logs showed `RASP_ROOT_DETECTED`.
-- OMADM/MAM service requests sent `DeviceHealth=1`.
-- Unenrollment/wipe reason included `DEVICE_NON_COMPLIANT`.
-- MAM service delete URL included `WipeReason=adminPolicyJB`.
-- LSPosed/HMA logs showed package visibility queries from `com.microsoft.windowsintune.companyportal`.
-- `dmesg` showed Company Portal and managed app processes probing SELinux/tracing/userfaultfd surfaces.
-- Managed app data contained copied Intune MAM native libraries, including `liborigin.so`.
-
-See:
+## Files
 
 - [Detector Details](docs/detectors.md)
-- [Runtime Evidence](evidence/runtime-evidence.md)
+- [Function Map](docs/function-map.md)
 - [Source References](docs/source-references.md)
-
-## Important Unknown
-
-The exported local logs did not expose the final internal `failedChecks` bitmask. The APK contains a diagnostic feature flag, `mam_origin_check_diagnostic_logs`, that would log per-check compliance names, but it was not enabled in the observed run.
-

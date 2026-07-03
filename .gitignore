@@ -1,4 +1,4 @@
-# Raw artifacts may contain private device/account/tenant data.
+# Raw artifacts are intentionally excluded.
 raw/
 *.apk
 *.db
@@ -11,5 +11,3 @@ raw/
 # Keep curated Markdown evidence.
 !README.md
 !docs/*.md
-!evidence/*.md
-
