@@ -1,0 +1,15 @@
+# Raw artifacts may contain private device/account/tenant data.
+raw/
+*.apk
+*.db
+*.db-*
+*.sqlite
+*.log
+*.txt
+*.zip
+
+# Keep curated Markdown evidence.
+!README.md
+!docs/*.md
+!evidence/*.md
+
