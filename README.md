@@ -31,3 +31,4 @@ The in-house origin checks implement a shared checker interface and return integ
 - [Detector Details](docs/detectors.md)
 - [Function Map](docs/function-map.md)
 - [Source References](docs/source-references.md)
+- [Version Diff Notes](docs/version-diff.md)
