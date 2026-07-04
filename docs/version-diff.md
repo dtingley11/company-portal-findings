@@ -26,12 +26,14 @@ The existing package, Xposed class, Magisk-name, Frida, and RASP telemetry strin
 
 ## Native RASP Runtime
 
-The obfuscated native RASP library changed:
+The obfuscated native RASP library changed. This appears to be the protected native RASP/DexGuard runtime bundled with the APK:
 
 - `5.0.6991.0`: `lib/arm64-v8a/libb9fc.so`
 - `5.0.7009.0`: `lib/arm64-v8a/libe145.so`
 
-The new library imports `dl_iterate_phdr`; the old one does not. This API can enumerate loaded ELF shared objects in the current process, so the newer native runtime appears to have added or enabled in-process module enumeration.
+In this APK comparison, `libe145.so` imports `dl_iterate_phdr`; `libb9fc.so` does not expose that import in its dynamic symbol table. This API can enumerate loaded ELF shared objects in the current process.
+
+This is an APK-level diff only. It does not imply the technique is new to DexGuard/RASP generally.
 
 Most other relevant native imports were already present in both versions, including:
 
@@ -69,4 +71,4 @@ The notification/control-flow glue changed, including additional generated call 
 
 ## Summary
 
-The visible version delta is not a new package-name or literal-string detector. The important change is the updated native RASP runtime and earlier RASP backend initialization. The added `dl_iterate_phdr` import is consistent with loaded-library/module enumeration inside the app process.
+The visible version delta is not a new package-name or literal-string detector. The important change is the updated protected native RASP runtime and earlier RASP backend initialization. The `dl_iterate_phdr` import newly visible in `5.0.7009.0` is consistent with loaded-library/module enumeration inside the app process.
