@@ -34,6 +34,7 @@ The obfuscated native RASP library changed. This appears to be the protected nat
 In this APK comparison, `libe145.so` imports `dl_iterate_phdr`; `libb9fc.so` does not expose that import in its dynamic symbol table. This API can enumerate loaded ELF shared objects in the current process.
 
 This is an APK-level diff only.
+
 Most other relevant native imports were already present in both versions, including:
 
 - `dladdr`
